@@ -39,7 +39,7 @@ download $1 $i
 download_speed $i
 done
 echo '*********************'
-echo best docker registry is `sort -rn database| head -1| cut -d'/' -f3 `
+echo best docker registry for $1 is `sort -rn database| head -1| cut -d'/' -f3 `
 echo '*********************'
 rm database 
 
