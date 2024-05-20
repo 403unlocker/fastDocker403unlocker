@@ -18,9 +18,8 @@ to download the script you can use the following command
 ```sh
 wget -c https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastdocker403unlocker/main/bash.sh
 ```
-after that you need to give the image name and tag as an argument with this format **[image]:tag**
+after that you need to give the image name and tag as an argument with this format **[image]:tag**     
 to run the script to analyzing this image at docker mirror registries that are available in [.env](https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/main/.env) file   
-
 you can use  the script like this 
 ```
 bash bash.sh gitlab/gitlab-ce:17.0.0-ce.0
