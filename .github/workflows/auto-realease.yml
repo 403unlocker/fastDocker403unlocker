@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main # Set a branch to deploy when pushed
+
+jobs:
+  release:
+      runs-on: ubuntu-latest
+      if: github.event_name == 'push'
+      steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: lts/*
+
+            - run: cp .github/.releaserc.yml .
+            - run: npm i -g semantic-release @semantic-release/changelog @semantic-release/git
+            - run: semantic-release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
