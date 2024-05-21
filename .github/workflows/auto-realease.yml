@@ -1,22 +1,36 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - main # Set a branch to deploy when pushed
+  release:
+    types: [published]
 
 jobs:
-  release:
+  init:
+    name: 🚩 Initialize
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Cancel previous workflow
+        uses: styfle/cancel-workflow-action@0.12.1
+        with:
+          access_token: ${{ github.token }}
+
+  release:
+    name: 🚀 Release
+    needs: init
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
 
-      - run: cp .github/.releaserc.yml .
-      - run: npm i -g semantic-release @semantic-release/changelog @semantic-release/git
-      - run: semantic-release
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cp .github/.releaserc.yml .
+          npm i -g semantic-release @semantic-release/changelog @semantic-release/git
+          semantic-release
