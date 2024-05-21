@@ -1,12 +1,10 @@
 ## [1.0.1](https://github.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/compare/1.0.0...1.0.1) (2024-05-20)
 
-
 ### Bug Fixes
 
 * **typo:** Update README.md ([f8ec065](https://github.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/commit/f8ec0659cef1561fabd98567369a866da0c09768))
 
 # 1.0.0 (2024-05-20)
-
 
 ### Features
 
