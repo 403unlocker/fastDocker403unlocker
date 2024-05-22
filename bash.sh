@@ -11,8 +11,8 @@ check_and_source_env() {
 }
 
 function download() {
-    echo analyzing $2
-    timeout $timeout skopeo copy docker://$2/$1 dir:/tmp/$2
+  echo analyzing $2
+  timeout $timeout skopeo copy docker://$2/$1 dir:/tmp/$2
 }
 
 function download_speed() {
