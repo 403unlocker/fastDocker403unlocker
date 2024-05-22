@@ -1,9 +1,11 @@
 you can add new DNS servers in [.env](https://github.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/blob/main/.env) with the following format
+
 ```
 #########################
 #https://example.com/
 #registry.example.com
 ```
+
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
