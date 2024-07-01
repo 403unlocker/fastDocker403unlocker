@@ -21,7 +21,7 @@ wget -c https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastdocker403unlo
 ```
 
 after that you need to give the image name and tag as an argument with this format **[image]:tag**
-to run the script to analyzing this image at docker mirror registries that are available in [.env](https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/main/.env) file
+to run the script to analyzing this image at docker mirror registries that are available in [fastDocker403unlocker.conf](https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/main/fastDocker403unlocker.conf) file
 you can use  the script like this
 
 ```bash

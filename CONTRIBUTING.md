@@ -1,4 +1,4 @@
-you can add new DNS servers in [.env](https://github.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/blob/main/.env) with the following format
+you can add new DNS servers in [fastDocker403unlocker.conf](https://github.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/blob/main/fastDocker403unlocker.conf) with the following format
 
 ```
 #########################
