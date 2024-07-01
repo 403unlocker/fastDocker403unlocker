@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+DATABASE=fastDocker403unlocker_database_$(date +%s)
+DATABASE_PATH=/tmp/$DATABASE
+CONFIG_FILE=/etc/fastDocker403unlocker.conf
+LOG_FILE=/tmp/fastDocker403unlocker.log
+
+# Functions
+check_and_source_env() {
+        if [ ! -f $CONFIG_FILE ]; then
+            wget -c https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/main/fastDocker403unlocker.conf
+        fi
+        source $CONFIG_FILE
+}
+
+function download() {
+    echo analyzing $2
+    timeout $timeout skopeo copy docker://$2/$1 dir:/tmp/$2
+}
+
+function download_speed() {
+    du -s /tmp/$1 >>$DATABASE_PATH
+    rm -fr /tmp/$1
+}
+
+loggin(){
+    echo "$(date '+%Y-%m-%d %H:%M:%S') "
+    sed -i s/"\/tmp\/"//g $DATABASE_PATH
+}
+
+check_required_packages_is_installed(){
+       if ! [ -x "$(command -v skopeo)" ]
+then
+echo "skopeo is not installed" >&2
+exit 1
+fi
+}
+
+# Execute the functions
+if [ $# -lt 1 ]; then
+    echo -e "Error: No argument provided.\n\n"
+    echo "You need to give the image name and it's tag as argument [image]:tag like this fastdocker403unlocker nginx:alpine"
+    exit 1 # Exit with a non-zero status to indicate an error
+fi
+
+check_and_source_env
+check_required_packages_is_installed
+touch $DATABASE_PATH
+
+for i in $registries; do
+    download $1 $i
+    download_speed $i
+done
+
+echo '*********************'
+echo best docker registry for $1 is $(sort -rn $DATABASE_PATH| head -1 | cut -d'/' -f3)
+echo '*********************'
+
+loggin >> $LOG_FILE
