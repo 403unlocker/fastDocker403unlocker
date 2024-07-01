@@ -4,7 +4,16 @@ I had so many challenges in choosing the docker registry mirror that has the doc
 
 ![image](https://github.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/assets/88885103/f54e9e63-4c04-4ab6-8a09-920ce71eeedb)
 
-## Prerequisites
+## Installing using package manager 
+### apt 
+```bash
+sudo add-apt-repository ppa:pourpasand/403unlocker
+sudo apt update
+sudo apt install fastdocker403unlocker
+```
+
+
+## Using from source 
 
 At first you need to install requirements packages for **Debian** base distribution
 
@@ -12,20 +21,18 @@ At first you need to install requirements packages for **Debian** base distribut
 sudo apt update -y && sudo apt install skopeo
 ```
 
-## How-To
-
 to download the script you can use the following command
 
 ```bash
-wget -c https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastdocker403unlocker/main/bash.sh
+wget -c https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastdocker403unlocker/main/fastDocker403unlocker
 ```
-
+## How-to use
 after that you need to give the image name and tag as an argument with this format **[image]:tag**
 to run the script to analyzing this image at docker mirror registries that are available in [fastDocker403unlocker.conf](https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/main/fastDocker403unlocker.conf) file
 you can use  the script like this
 
 ```bash
-bash bash.sh gitlab/gitlab-ce:17.0.0-ce.0
+fastDocker403unlocker gitlab/gitlab-ce:17.0.0-ce.0
 ```
 
 ## Contact
