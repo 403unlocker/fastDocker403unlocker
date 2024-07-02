@@ -34,7 +34,7 @@ you can use  the script like this
 ```bash
 fastDocker403unlocker gitlab/gitlab-ce:17.0.0-ce.0
 ```
-or you can give the script you docker compose file and it will find the best registry for each docker image and replace it 
+or you can give your docker compose file to the script and it will find the best registry for each docker image and replace it 
 ```bash
 fastdocker403unlocker -i docker-compose.yml
 fastdocker403unlocker -i docker-compose.yml -o fast-docker-compose.yml
