@@ -3,7 +3,7 @@ DATABASE=fastDocker403unlocker_database_$(date +%s)
 DATABASE_PATH=/tmp/$DATABASE
 CONFIG_FILE=/etc/fastDocker403unlocker.conf
 LOG_FILE=/tmp/fastDocker403unlocker.log
-
+trap 'echo "\n Exiting..."; exit' SIGINT
 # Functions
 get_dockerimages(){
     images=$(grep 'image:' $1 | awk '{print $2}')
