@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-DATABASE=fastDocker403unlocker_database_$(date +%s)
-DATABASE_PATH=/tmp/$DATABASE
+DATABASE=fastDocker403unlocker_database_"$(date +%s)"
+DATABASE_PATH=/tmp/"$DATABASE"
 CONFIG_FILE=/etc/fastDocker403unlocker.conf
 LOG_FILE=/tmp/fastDocker403unlocker.log
 trap 'echo "\n Exiting..."; exit' SIGINT
@@ -17,7 +17,7 @@ get_dockerimages(){
 
 check_and_source_env() {
     if [ ! -f "$CONFIG_FILE" ]; then
-        wget -c https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/main/fastDocker403unlocker.conf
+        wget -c https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/main/fastDocker403unlocker.conf -O "$CONFIG_FILE"
     fi
     source "$CONFIG_FILE"
 }
