@@ -19,4 +19,4 @@ jobs:
           SHELLCHECK_OPTS: -e SC1090 -e SC2154 
         with:
           version: v0.9.0
-
+          additional_files: 'fastDocker403unlocker'
