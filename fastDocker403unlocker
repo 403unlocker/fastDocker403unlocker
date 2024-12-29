@@ -6,35 +6,35 @@ LOG_FILE=/tmp/fastDocker403unlocker.log
 trap 'echo "\n Exiting..."; exit' SIGINT
 # Functions
 get_dockerimages(){
-    images=$(grep 'image:' $1 | awk '{print $2}')
+    images=$(grep 'image:' "$1" | awk '{print $2}')
 
     # Save the images in a variable
-    images_variable=$(echo $images | tr '\n' ' ')
+    images_variable=$(echo "$images" | tr '\n' ' ')
 
     # Output the variable
     echo "$images_variable"
 }
 
 check_and_source_env() {
-    if [ ! -f $CONFIG_FILE ]; then
+    if [ ! -f "$CONFIG_FILE" ]; then
         wget -c https://raw.githubusercontent.com/ArmanTaheriGhaleTaki/fastDocker403unlocker/main/fastDocker403unlocker.conf
     fi
-    source $CONFIG_FILE
+    source "$CONFIG_FILE"
 }
 
 download() {
-    echo analyzing $2
-    timeout $timeout skopeo copy docker://$2/$1 dir:/tmp/$2
+    echo analyzing "$2"
+    timeout "$timeout" skopeo copy docker://"$2"/"$1" dir:/tmp/"$2"
 }
 
 download_speed() {
-    du -s /tmp/$1 >>$DATABSE_FILE
-    rm -fr /tmp/$1
+    du -s /tmp/"$1" >>"$DATABSE_FILE"
+    rm -fr /tmp/"$1"
 }
 
 loggin(){
     echo "$(date '+%Y-%m-%d %H:%M:%S') "
-    sed -i s/"\/tmp\/"//g $DATABSE_FILE
+    sed -i s/"\/tmp\/"//g "$DATABSE_FILE"
 }
 
 check_required_packages_is_installed(){
@@ -48,18 +48,18 @@ find_fast_registry(){
     check_and_source_env
     check_required_packages_is_installed
     sanitized_image_name=$(echo "$1" | sed 's/\//_/g')
-    DATABSE_FILE=$DATABASE_PATH$sanitized_image_name
-    touch $DATABSE_FILE
+    DATABSE_FILE="$DATABASE_PATH""$sanitized_image_name"
+    touch "$DATABSE_FILE"
     for i in $registries; do
-        download $1 $i
-        download_speed $i
+        download "$1" "$i"
+        download_speed "$i"
     done
-    BEST_REGISTRY=$(sort -rn $DATABSE_FILE | head -1 | cut -d'/' -f3)
+    BEST_REGISTRY=$(sort -rn "$DATABSE_FILE" | head -1 | cut -d'/' -f3)
     echo '******************************************************************'
-    echo best docker registry for $1 is $BEST_REGISTRY
+    echo best docker registry for "$1" is "$BEST_REGISTRY"
     echo '******************************************************************'
-    loggin >> $LOG_FILE
-    rm -rf $DATABSE_FILE
+    loggin >> "$LOG_FILE"
+    rm -rf "$DATABSE_FILE"
 }
 
 # Execute the functions
@@ -103,9 +103,9 @@ if [[ -z "$INPUT_NAME" && -n "$OUTPUT_NAME" ]]; then
     exit 1
 elif [[ -z "$INPUT_NAME" && -z "$OUTPUT_NAME" ]]; then
     if [[ $# -eq 1 ]]; then
-        IMAGE=$1
-        echo "Processing single image: $IMAGE"
-        find_fast_registry $IMAGE
+        IMAGE="$1"
+        echo "Processing single image: ""$IMAGE"""
+        find_fast_registry "$IMAGE"
 
     else
         echo "Error: -i option is required when processing a docker-compose file."
@@ -118,11 +118,11 @@ fi
 if [[ -n "$INPUT_NAME" ]]; then
     get_dockerimages "$INPUT_NAME"
     for image in $images_variable; do
-        find_fast_registry $image
+        find_fast_registry "$image"
         if [ -n "$OUTPUT_NAME" ]; then
-            sed  -i s/"$image"/"$BEST_REGISTRY\/$image"/g $OUTPUT_NAME
+            sed  -i s/"$image"/"$BEST_REGISTRY"/"$image"/g "$OUTPUT_NAME"
         else
-            sed  -i s/"$image"/"$BEST_REGISTRY\/$image"/g $INPUT_NAME
+            sed  -i s/"$image"/"$BEST_REGISTRY"/"$image"/g "$INPUT_NAME"
         fi
     done
 fi
